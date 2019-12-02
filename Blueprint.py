@@ -12,28 +12,33 @@ class Blueprint:
         self.runs = runs
 
 
-    def get_input_costs(self):
+    def get_input_costs(self, buyorders=True):
 
         total_costs = 0
 
         for item_name, amount in self.input_items.items():
 
-            item_price = Market.get_market_attr_by_name(item_name, Mode.BUY)[0]
+            buying_mode = Mode.BUYMAX if buyorders else Mode.SELLMIN
+            item_price = Market.get_market_attr_by_name(item_name, buying_mode)[0]
             total_costs += item_price * amount
 
         return total_costs
 
 
-    def get_output_revenue(self):
-        return Market.get_market_attr_by_name(self.name, Mode.SELL)[0] * self.output_quant
+    def get_output_revenue(self, sellorders=True):
+
+        selling_mode = Mode.SELLMIN if sellorders else Mode.BUYMAX
+        return Market.get_market_attr_by_name(self.name, selling_mode)[0] * self.output_quant
 
 
-    def get_profit_per_run(self):
-        return self.get_output_revenue() - self.get_input_costs()
+
+    def get_profit_per_run(self, sellorders=True, buyorders=True):
+        return self.get_output_revenue(sellorders) - self.get_input_costs(buyorders)
 
 
-    def get_total_profit(self):
-        return self.get_profit_per_run()*self.runs
+    def get_total_profit(self, sellorders=True, buyorders=True):
+
+        return self.get_profit_per_run(sellorders, buyorders)*self.runs
 
 
     @staticmethod

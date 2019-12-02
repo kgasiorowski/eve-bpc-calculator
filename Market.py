@@ -10,8 +10,11 @@ name_to_id = None
 market_cache = {}
 
 class Mode(Enum):
-    BUY = ('buy', 'max')
-    SELL = ('sell', 'min')
+    BUYMAX = ('buy', 'max')
+    SELLMIN = ('sell', 'min')
+
+    SELLMAX = ('sell', 'max')
+    BUYMIN = ('buy', 'min')
 
 
 def load_dicts():
