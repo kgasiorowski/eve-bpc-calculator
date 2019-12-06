@@ -1,6 +1,7 @@
 import requests
 from enum import Enum
 import json
+from pprint import pprint
 
 JITA = 30000142
 
@@ -15,6 +16,9 @@ class Mode(Enum):
 
     SELLMAX = ('sell', 'max')
     BUYMIN = ('buy', 'min')
+
+    BUYAVG = ('buy', 'avg')
+    SELLAVG = ('sell', 'avg')
 
 
 def load_dicts():
@@ -57,7 +61,7 @@ def get_market_attr_by_id(itemid, mode):
 
         json_response = requests.get(URL, PARAMS).json()
 
-        market_cache[itemid][mode] = [response[mode.value[0]][mode.value[1]] for response in json_response]
+        market_cache[itemid][mode] = [response[mode.value[0]][mode.value[1]] for response in json_response][0]
 
     return market_cache[itemid][mode]
 
@@ -65,3 +69,9 @@ def get_market_attr_by_id(itemid, mode):
 def get_market_attr_by_name(name, mode):
 
     return get_market_attr_by_id(get_id_by_name(name), mode)
+
+
+def print_cache():
+    global market_cache
+
+    pprint(market_cache)

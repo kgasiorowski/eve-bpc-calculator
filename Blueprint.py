@@ -19,7 +19,7 @@ class Blueprint:
         for item_name, amount in self.input_items.items():
 
             buying_mode = Mode.BUYMAX if buyorders else Mode.SELLMIN
-            item_price = Market.get_market_attr_by_name(item_name, buying_mode)[0]
+            item_price = Market.get_market_attr_by_name(item_name, buying_mode)
             total_costs += item_price * amount
 
         return total_costs
@@ -28,7 +28,7 @@ class Blueprint:
     def get_output_revenue(self, sellorders=True):
 
         selling_mode = Mode.SELLMIN if sellorders else Mode.BUYMAX
-        return Market.get_market_attr_by_name(self.name, selling_mode)[0] * self.output_quant
+        return Market.get_market_attr_by_name(self.name, selling_mode) * self.output_quant
 
 
 
@@ -51,7 +51,7 @@ class Blueprint:
     @staticmethod
     def initialize_blueprints(blueprints_path):
 
-        blueprints = []
+        blueprints = {}
 
         for filename in os.listdir(blueprints_path):
             with open(blueprints_path + filename) as blueprint_file:
@@ -73,6 +73,6 @@ class Blueprint:
                     item_name, item_quantity = Blueprint.parse_string(line)
                     input_dict.setdefault(item_name, item_quantity)
 
-                blueprints.append(Blueprint(outputname, input_dict, outputquantity, num_runs))
+                blueprints.setdefault(outputname, Blueprint(outputname, input_dict, outputquantity, num_runs))
 
         return blueprints
