@@ -1,5 +1,5 @@
-import Market
-from Market import Mode
+import market
+from market import Mode
 import os
 
 
@@ -19,7 +19,7 @@ class Blueprint:
         for item_name, amount in self.input_items.items():
 
             buying_mode = Mode.BUYMAX if buyorders else Mode.SELLMIN
-            item_price = Market.get_market_attr_by_name(item_name, buying_mode)
+            item_price = market.get_market_attr_by_name(item_name, buying_mode)
             total_costs += item_price * amount
 
         return total_costs
@@ -28,7 +28,7 @@ class Blueprint:
     def get_output_revenue(self, sellorders=True):
 
         selling_mode = Mode.SELLMIN if sellorders else Mode.BUYMAX
-        return Market.get_market_attr_by_name(self.name, selling_mode) * self.output_quant
+        return market.get_market_attr_by_name(self.name, selling_mode) * self.output_quant
 
 
 

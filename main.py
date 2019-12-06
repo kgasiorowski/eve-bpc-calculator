@@ -1,6 +1,6 @@
-from Blueprint import Blueprint
+from blueprint import Blueprint
 import argparse
-import Market
+import market
 
 def print_item(item, profit, counter=1):
     print(f'{counter:3d}. {item.name:50s}{profit:>20,.2f}{profit/item.runs:>20,.2f} x {item.runs}')
@@ -16,6 +16,7 @@ def main():
     parser.add_argument('-s', '--sellorders', action='store_true')
     parser.add_argument('-n', '--name')
     parser.add_argument('-p', '--print', action='store_true')
+    parser.add_argument('-a', '--alphabetical', action='store_true')
 
     args = parser.parse_args()
 
@@ -24,6 +25,9 @@ def main():
 
     if args.buyorders:
         print("Buying using buy orders!")
+
+    if args.alphabetical:
+        print('Sorting alphabetically!')
 
     blueprints = Blueprint.initialize_blueprints('./data/blueprints/')
 
@@ -45,7 +49,10 @@ def main():
                                    blueprint.get_total_profit(sellorders=args.sellorders, buyorders=args.buyorders))
 
         print('Sorting...')
-        profit_dict = reversed(sorted(profit_dict.items(), key=lambda kv: kv[1]))
+        if args.alphabetical:
+            profit_dict = sorted(profit_dict.items(), key=lambda kv: kv[0].name)
+        else:
+            profit_dict = reversed(sorted(profit_dict.items(), key=lambda kv: kv[1]))
 
         print_header(sellorders=args.sellorders, buyorders=args.buyorders)
 
@@ -55,7 +62,7 @@ def main():
             print_item(item, profit, counter)
 
     if args.print:
-        Market.print_cache()
+        market.print_cache()
 
 
 if __name__ == "__main__":
