@@ -5,12 +5,12 @@ import os
 
 class Blueprint:
 
-    def __init__(self, _name, _input_items, _output_quant, runs=1):
+    def __init__(self, _name, _input_items, _output_quant, _market, runs=1):
         self.input_items = _input_items
         self.name = _name
         self.output_quant = _output_quant
         self.runs = runs
-
+        self.market = _market
 
     def get_input_costs(self, buyorders=True):
 
@@ -19,7 +19,7 @@ class Blueprint:
         for item_name, amount in self.input_items.items():
 
             buying_mode = Mode.BUYMAX if buyorders else Mode.SELLMIN
-            item_price = market.get_market_attr_by_name(item_name, buying_mode)
+            item_price = self.market.get_market_attr_by_name(item_name, buying_mode)
             total_costs += item_price * amount
 
         return total_costs
@@ -28,7 +28,7 @@ class Blueprint:
     def get_output_revenue(self, sellorders=True):
 
         selling_mode = Mode.SELLMIN if sellorders else Mode.BUYMAX
-        return market.get_market_attr_by_name(self.name, selling_mode) * self.output_quant
+        return self.market.get_market_attr_by_name(self.name, selling_mode) * self.output_quant
 
 
 
@@ -37,7 +37,6 @@ class Blueprint:
 
 
     def get_total_profit(self, sellorders=True, buyorders=True):
-
         return self.get_profit_per_run(sellorders, buyorders)*self.runs
 
 
@@ -48,8 +47,9 @@ class Blueprint:
 
         return item_name, number
 
+
     @staticmethod
-    def initialize_blueprints(blueprints_path):
+    def initialize_blueprints(blueprints_path, market_reference):
 
         blueprints = {}
 
@@ -73,6 +73,6 @@ class Blueprint:
                     item_name, item_quantity = Blueprint.parse_string(line)
                     input_dict.setdefault(item_name, item_quantity)
 
-                blueprints.setdefault(outputname, Blueprint(outputname, input_dict, outputquantity, num_runs))
+                blueprints.setdefault(outputname, Blueprint(outputname, input_dict, outputquantity, market_reference, num_runs))
 
         return blueprints

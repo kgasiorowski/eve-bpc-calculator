@@ -1,6 +1,6 @@
 from blueprint import Blueprint
 import argparse
-import market
+import market as mk
 
 def print_item(item, profit, counter=1):
     print(f'{counter:3d}. {item.name:50s}{profit:>20,.2f}{profit/item.runs:>20,.2f} x {item.runs}')
@@ -28,7 +28,8 @@ def main():
     if args.alphabetical:
         print('Sorting alphabetically!')
 
-    blueprints = Blueprint.initialize_blueprints('./data/blueprints/')
+    market = mk.Market()
+    blueprints = Blueprint.initialize_blueprints('./data/blueprints/', market)
 
     if args.name is not None:
 

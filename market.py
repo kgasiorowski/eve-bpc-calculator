@@ -5,9 +5,6 @@ from time import time
 
 JITA = 30000142
 
-id_to_name = None
-name_to_id = None
-market_cache = None
 
 class Mode(Enum):
     BUYMAX = ('buy', 'max')
@@ -20,78 +17,81 @@ class Mode(Enum):
     SELLAVG = ('sell', 'avg')
 
 
-def load_dicts():
-    global id_to_name
-    global name_to_id
+class Market:
 
-    if id_to_name is None:
-        with open('./data/dicts/id_to_name.json') as infile:
-            id_to_name = json.load(infile)
+    def __init__(self):
+        self.id_to_name = None
+        self.name_to_id = None
+        self.market_cache = None
 
-    if name_to_id is None:
-        with open('./data/dicts/name_to_id.json') as infile:
-            name_to_id = json.load(infile)
+    def load_dicts(self):
 
+        if self.id_to_name is None:
+            with open('./data/dicts/id_to_name.json') as infile:
+                self.id_to_name = json.load(infile)
 
-def load_cache():
-    global market_cache
-
-    if market_cache is None:
-        with open('./data/cache/market_cache.json') as cache_file:
-            market_cache = json.load(cache_file)
-
-    return market_cache
-
-def save_cache():
-
-    with open('./data/cache/market_cache.json', 'w') as cache_file:
-        json.dump(market_cache, cache_file)
-
-def get_id_by_name(name):
-
-    load_dicts()
-    return name_to_id[name]
+        if self.name_to_id is None:
+            with open('./data/dicts/name_to_id.json') as infile:
+                self.name_to_id = json.load(infile)
 
 
-def get_name_by_id(item_id):
+    def load_cache(self):
 
-    load_dicts()
-    return id_to_name[item_id]
+        if self.market_cache is None:
+            with open('./data/cache/market_cache.json') as cache_file:
+                self.market_cache = json.load(cache_file)
 
+        return self.market_cache
 
-def get_market_attr_by_id(itemid, mode):
+    def save_cache(self):
 
-    load_cache()
+        with open('./data/cache/market_cache.json', 'w') as cache_file:
+            json.dump(self.market_cache, cache_file)
 
-    try:
+    def get_id_by_name(self, name):
 
-        current_time = time()
-        difference = current_time - market_cache[itemid][mode.value[0]][mode.value[1]]['time']
-
-        if difference < 3600:
-            return market_cache[itemid][mode.value[0]][mode.value[1]]['val']
-        else:
-            raise KeyError
-
-    except KeyError:
-
-        URL = r'http://api.evemarketer.com/ec/marketstat/json'
-        PARAMS = {'typeid': itemid,
-                  'usesystem': JITA}
-
-        json_response = requests.get(URL, PARAMS).json()
-
-        market_cache.setdefault(itemid, {})
-        market_cache[itemid].setdefault(mode.value[0], {})
-        market_cache[itemid][mode.value[0]].setdefault(mode.value[1], {})
-
-        market_cache[itemid][mode.value[0]][mode.value[1]]['val'] = [response[mode.value[0]][mode.value[1]] for response in json_response][0]
-        market_cache[itemid][mode.value[0]][mode.value[1]]['time'] = int(time())
-        save_cache()
-
-    return market_cache[itemid][mode.value[0]][mode.value[1]]['val']
+        self.load_dicts()
+        return self.name_to_id[name]
 
 
-def get_market_attr_by_name(name, mode):
+    def get_name_by_id(self, item_id):
 
-    return get_market_attr_by_id(get_id_by_name(name), mode)
+        self.load_dicts()
+        return self.id_to_name[item_id]
+
+
+    def get_market_attr_by_id(self, itemid, mode):
+
+        self.load_cache()
+
+        try:
+
+            current_time = time()
+            difference = current_time - self.market_cache[itemid][mode.value[0]][mode.value[1]]['time']
+
+            if difference < 3600:
+                return self.market_cache[itemid][mode.value[0]][mode.value[1]]['val']
+            else:
+                raise KeyError
+
+        except KeyError:
+
+            URL = r'http://api.evemarketer.com/ec/marketstat/json'
+            PARAMS = {'typeid': itemid,
+                      'usesystem': JITA}
+
+            json_response = requests.get(URL, PARAMS).json()
+
+            self.market_cache.setdefault(itemid, {})
+            self.market_cache[itemid].setdefault(mode.value[0], {})
+            self.market_cache[itemid][mode.value[0]].setdefault(mode.value[1], {})
+
+            self.market_cache[itemid][mode.value[0]][mode.value[1]]['val'] = [response[mode.value[0]][mode.value[1]] for response in json_response][0]
+            self.market_cache[itemid][mode.value[0]][mode.value[1]]['time'] = int(time())
+            self.save_cache()
+
+        return self.market_cache[itemid][mode.value[0]][mode.value[1]]['val']
+
+
+    def get_market_attr_by_name(self, name, mode):
+        return self.get_market_attr_by_id(self.get_id_by_name(name), mode)
