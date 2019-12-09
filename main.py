@@ -15,7 +15,6 @@ def main():
     parser.add_argument('-b', '--buyorders', action='store_true')
     parser.add_argument('-s', '--sellorders', action='store_true')
     parser.add_argument('-n', '--name')
-    parser.add_argument('-p', '--print', action='store_true')
     parser.add_argument('-a', '--alphabetical', action='store_true')
 
     args = parser.parse_args()
@@ -60,9 +59,6 @@ def main():
         for item, profit in profit_dict:
             counter += 1
             print_item(item, profit, counter)
-
-    if args.print:
-        market.print_cache()
 
 
 if __name__ == "__main__":
