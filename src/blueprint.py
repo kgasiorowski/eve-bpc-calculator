@@ -35,8 +35,12 @@ class Blueprint:
         results.input_costs = self.__calculate_costs(buyorders)
 
         if self.invented:
-            results.invention_costs = self.__calculate_invention_costs(decryptors['Attainment Decryptor'])
+
+            decryptor = decryptors['Attainment Decryptor']
+
+            results.invention_costs = self.__calculate_invention_costs(decryptor)
             results.input_costs += results.invention_costs
+            results.runs += decryptor.run_modifier
 
         results.revenue = self.__calculate_revenue(sellorders)
         results.profit = results.revenue - results.input_costs
@@ -74,7 +78,7 @@ class Blueprint:
         num_invention_runs_ratio = derived_invention_chance * derived_runs
         price_per_invented_run = cost_per_invention/num_invention_runs_ratio
 
-        print(f'Invention cost for {self.name}: {price_per_invented_run} using {decryptor.name}')
+        # print(f'Invention cost for {self.name}: {price_per_invented_run} using {decryptor.name}')
 
         return price_per_invented_run
 

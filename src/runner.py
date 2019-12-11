@@ -4,11 +4,16 @@ from src import market as mk
 from src.decryptor import Decryptor
 
 def print_item(item, result, counter=1):
-    print(f'{counter:3d}. {item.name:50s}{result.profit_per_bpc:>20,.2f}{result.profit:>20,.2f} x {item.runs:4} {result.profit_margin*100:10,.2f}%')
+    print(f'{counter:3d}. '
+          f'{item.name:50s}'
+          f'{result.profit_per_bpc:>20,.2f}'
+          f'{result.profit:>20,.2f} x {result.runs:4} '
+          f'{result.profit_margin*100:10,.2f}% '
+          f'{result.invention_costs if result.invention_costs is not None else 0:>14,.2f}')
 
 def print_header(buyorders=True, sellorders=True):
     print(f'\nUsing buy orders: {"Yes" if buyorders else "No"}\nUsing sell orders: {"Yes" if sellorders else "No"}\n')
-    print(f'{"":3s}  {"Blueprint Name":50s}{"Total profit":>20s}{"Breakdown":>20s} x {"runs":4} {"Margin":>10}')
+    print(f'{"":3s}  {"Blueprint Name":50s}{"Total profit":>20s}{"Breakdown":>20s} x {"runs":4} {"Margin":>11} {"Invention cost"}')
 
 def main():
 
