@@ -3,6 +3,7 @@ from enum import Enum
 import json
 from time import time
 import os
+import src.data as data
 
 JITA = 30000142
 
@@ -26,6 +27,12 @@ class Market:
         self.market_cache = None
 
     def load_dicts(self):
+
+        if \
+        not os.path.exists('./data/dicts/id_to_name.json') or \
+        not os.path.exists('./data/dicts/id_to_name.json'):
+            data.convertXLStoCSVandFilter()
+            data.generate_lookup_dicts()
 
         if self.id_to_name is None:
             with open('./data/dicts/id_to_name.json') as infile:
