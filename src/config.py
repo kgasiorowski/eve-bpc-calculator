@@ -1,4 +1,4 @@
-GENERATED_PATH = './data'
+GENERATED_PATH = './generated'
 DATA_PATH = './data'
 SRC_PATH = './src'
 

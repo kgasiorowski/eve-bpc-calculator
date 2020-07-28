@@ -3,6 +3,7 @@ import argparse
 from src import market as mk
 from src.decryptor import Decryptor
 from src.config import *
+from src.data import init
 
 def print_item(item, result, counter=1):
     print(f'{counter:3d}. '

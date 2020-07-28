@@ -29,12 +29,6 @@ class Market:
 
     def load_dicts(self):
 
-        if \
-        not os.path.exists(ID_TO_NAME_JSON) or \
-        not os.path.exists(NAME_TO_ID_JSON):
-            data.convertXLStoCSVandFilter()
-            data.generate_lookup_dicts()
-
         if self.id_to_name is None:
             with open(ID_TO_NAME_JSON) as infile:
                 self.id_to_name = json.load(infile)
@@ -54,7 +48,6 @@ class Market:
         return self.market_cache
 
     def generate_cache_file(self):
-        os.makedirs(CACHE_PATH)
         with open(MARKET_CACHE_JSON, 'w') as new_cache_file:
             new_cache_file.write('{}')
 

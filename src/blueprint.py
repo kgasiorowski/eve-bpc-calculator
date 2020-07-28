@@ -2,11 +2,14 @@ from src.market import Mode
 from src.decryptor import Decryptor
 import os
 from src.config import *
+from src.data import init
 
 # invention_path = INVENTIONS_PATH
 # decryptors_path = DECRYPTORS_PATH
 
+init()
 decryptors = Decryptor.get_decryptors(DECRYPTORS_JSON)
+
 
 class Blueprint:
 

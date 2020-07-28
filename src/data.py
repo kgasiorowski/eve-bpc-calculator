@@ -4,7 +4,24 @@ import pandas
 import os
 from src.config import *
 
+def generate_generated():
+    try:
+        os.makedirs(GENERATED_PATH)
+    except FileExistsError:
+        pass
+
+    try:
+        os.makedirs(DICTS_PATH)
+    except FileExistsError:
+        pass
+
+    try:
+        os.makedirs(CACHE_PATH)
+    except FileExistsError:
+        pass
+
 def generate_lookup_dicts():
+
     name_id_dict = {}
     id_name_dict = {}
 
@@ -17,8 +34,6 @@ def generate_lookup_dicts():
 
             name_id_dict.setdefault(name, item_id)
             id_name_dict.setdefault(item_id, name)
-
-    os.makedirs(DICTS_PATH)
 
     with open(NAME_TO_ID_JSON, 'w+') as outfile:
         json.dump(name_id_dict, outfile)
@@ -33,6 +48,12 @@ def convertXLStoCSVandFilter():
     xls_data.to_csv(INVTYPES_CSV)
 
 
-if __name__ == "__main__":
-    convertXLStoCSVandFilter()
-    generate_lookup_dicts()
+def init():
+    generate_generated()
+
+    if not os.path.exists(INVTYPES_CSV):
+        convertXLStoCSVandFilter()
+
+    if not os.path.exists(ID_TO_NAME_JSON) \
+            or not os.path.exists(NAME_TO_ID_JSON):
+        generate_lookup_dicts()
