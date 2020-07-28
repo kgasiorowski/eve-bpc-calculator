@@ -2,6 +2,7 @@ from src.blueprint import Blueprint
 import argparse
 from src import market as mk
 from src.decryptor import Decryptor
+from src.config import *
 
 def print_item(item, result, counter=1):
     print(f'{counter:3d}. '
@@ -40,7 +41,7 @@ def main():
     Blueprint.market = market
 
     # Initialize our list of blueprints
-    blueprints = Blueprint.initialize_blueprints('./data/blueprints/')
+    blueprints = Blueprint.initialize_blueprints(BLUEPRINTS_PATH)
 
     if args.name is not None:
 

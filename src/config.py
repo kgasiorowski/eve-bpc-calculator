@@ -1,13 +1,18 @@
-GENERATED_PATH = './generated'
+GENERATED_PATH = './data'
 DATA_PATH = './data'
 SRC_PATH = './src'
 
-RAW_XLS_DATA = DATA_PATH + '/invTypes.xls'
-CONVERTED_CSV_DATA = GENERATED_PATH + '/invTypes.csv'
+BLUEPRINTS_PATH = DATA_PATH + '/blueprints'
+DECRYPTORS_PATH = DATA_PATH + '/decryptors'
+DECRYPTORS_JSON = DECRYPTORS_PATH + '/decryptors.json'
+INVENTIONS_PATH = DATA_PATH + '/invention'
 
-DICT_PATH = GENERATED_PATH + '/dicts'
-ID_TO_NAME = DICT_PATH + '/id_to_name.json'
-NAME_TO_ID = DICT_PATH + '/name_to_id.json'
+INVTYPES_XLS = DATA_PATH + '/invTypes.xls'
+INVTYPES_CSV = GENERATED_PATH + '/invTypes.csv'
+
+DICTS_PATH = GENERATED_PATH + '/dicts'
+ID_TO_NAME_JSON = DICTS_PATH + '/id_to_name.json'
+NAME_TO_ID_JSON = DICTS_PATH + '/name_to_id.json'
 
 CACHE_PATH = GENERATED_PATH + '/cache'
-MARKET_CACHE_PATH = CACHE_PATH + '/market_cache.json'
+MARKET_CACHE_JSON = CACHE_PATH + '/market_cache.json'

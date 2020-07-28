@@ -1,11 +1,12 @@
 from src.market import Mode
 from src.decryptor import Decryptor
 import os
+from src.config import *
 
-invention_path = './data/invention/'
-decryptors_path = './data/decryptors/decryptors.json'
+# invention_path = INVENTIONS_PATH
+# decryptors_path = DECRYPTORS_PATH
 
-decryptors = Decryptor.get_decryptors(decryptors_path)
+decryptors = Decryptor.get_decryptors(DECRYPTORS_JSON)
 
 class Blueprint:
 
@@ -98,7 +99,7 @@ class Blueprint:
         blueprints = {}
 
         for filename in os.listdir(blueprints_path):
-            with open(blueprints_path + filename) as blueprint_file:
+            with open(blueprints_path + '/' + filename) as blueprint_file:
 
                 firstline = blueprint_file.readline()
 
@@ -124,7 +125,7 @@ class Blueprint:
                 blueprint.runs = num_runs
 
                 try:
-                    with open(invention_path + filename) as invention_file:
+                    with open(INVENTIONS_PATH + filename) as invention_file:
                         blueprint.invented = True
                         blueprint.base_invention_chance,\
                         blueprint.invented_runs,\
