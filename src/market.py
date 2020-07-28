@@ -59,14 +59,11 @@ class Market:
     def get_market_attr_by_id(self, itemid, mode):
         self.load_cache()
 
-        try:
-            current_time = time()
-            difference = current_time - self.market_cache[itemid][mode.value[0]][mode.value[1]]['time']
-            if difference < 3600:
-                return self.market_cache[itemid][mode.value[0]][mode.value[1]]['val']
-            else:
-                raise KeyError
-        except KeyError:
+        current_time = time()
+        difference = current_time - self.market_cache[itemid][mode.value[0]][mode.value[1]]['time']
+        if difference < 3600:
+            return self.market_cache[itemid][mode.value[0]][mode.value[1]]['val']
+        else:
 
             URL = r'http://api.evemarketer.com/ec/marketstat/json'
             PARAMS = {'typeid': itemid,
