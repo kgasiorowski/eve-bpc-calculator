@@ -27,6 +27,10 @@ class Decryptor:
     def get_decryptors():
 
         with open(DECRYPTORS_JSON) as decryptors_file:
-           decryptors_dict = json.load(decryptors_file)
+            raw_decryptors_dict = json.load(decryptors_file)
 
-        return {decryptor['name']:Decryptor(decryptor['name'], decryptor['runs'], decryptor['prob']) for decryptor in decryptors_dict}
+        decryptors = {}
+        for decryptor in raw_decryptors_dict:
+            decryptors.setdefault(decryptor['name'], Decryptor(decryptor['name'], decryptor['runs'], decryptor['prob']))
+
+        return decryptors
