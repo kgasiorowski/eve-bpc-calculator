@@ -2,6 +2,7 @@ import requests
 from enum import Enum
 import json
 from time import time
+import os
 
 JITA = 30000142
 
@@ -38,10 +39,16 @@ class Market:
     def load_cache(self):
 
         if self.market_cache is None:
+            if not os.path.exists('./data/cache/market_cache.json'):
+                self.generate_cache_file()
             with open('./data/cache/market_cache.json') as cache_file:
                 self.market_cache = json.load(cache_file)
-
         return self.market_cache
+
+    def generate_cache_file(self):
+        os.makedirs('./data/cache/')
+        with open('./data/cache/market_cache.json', 'w') as new_cache_file:
+            new_cache_file.write('{}')
 
     def save_cache(self):
 
