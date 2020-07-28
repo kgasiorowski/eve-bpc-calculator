@@ -42,7 +42,7 @@ def main():
     Blueprint.market = market
 
     # Initialize our list of blueprints
-    blueprints = Blueprint.initialize_blueprints(BLUEPRINTS_PATH)
+    blueprints = Blueprint.initialize_blueprints()
 
     if args.name is not None:
 

@@ -1,6 +1,6 @@
 import json
-from src import market as mk
-
+import src.market as mk
+from src.config import *
 
 class Decryptor:
 
@@ -22,9 +22,9 @@ class Decryptor:
 
 
     @staticmethod
-    def get_decryptors(path):
+    def get_decryptors():
 
-        with open(path) as decryptors_file:
+        with open(DECRYPTORS_JSON) as decryptors_file:
            decryptors_dict = json.load(decryptors_file)
 
         return {decryptor['name']:Decryptor(decryptor['name'], decryptor['runs'], decryptor['prob']) for decryptor in decryptors_dict}

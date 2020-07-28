@@ -5,7 +5,7 @@ from src.data import init
 import json
 
 init()
-decryptors = Decryptor.get_decryptors(DECRYPTORS_JSON)
+decryptors = Decryptor.get_decryptors()
 
 
 class Blueprint:
@@ -94,7 +94,7 @@ class Blueprint:
 
 
     @staticmethod
-    def initialize_blueprints(blueprints_path):
+    def initialize_blueprints():
 
         blueprints = {}
 
