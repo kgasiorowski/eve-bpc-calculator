@@ -3,6 +3,8 @@ from enum import Enum
 import json
 from time import time
 import os
+import src.data as data
+from src.config import *
 
 JITA = 30000142
 
@@ -28,31 +30,30 @@ class Market:
     def load_dicts(self):
 
         if self.id_to_name is None:
-            with open('./data/dicts/id_to_name.json') as infile:
+            with open(ID_TO_NAME_JSON) as infile:
                 self.id_to_name = json.load(infile)
 
         if self.name_to_id is None:
-            with open('./data/dicts/name_to_id.json') as infile:
+            with open(NAME_TO_ID_JSON) as infile:
                 self.name_to_id = json.load(infile)
 
 
     def load_cache(self):
 
         if self.market_cache is None:
-            if not os.path.exists('./data/cache/market_cache.json'):
+            if not os.path.exists(MARKET_CACHE_JSON):
                 self.generate_cache_file()
-            with open('./data/cache/market_cache.json') as cache_file:
+            with open(MARKET_CACHE_JSON) as cache_file:
                 self.market_cache = json.load(cache_file)
         return self.market_cache
 
     def generate_cache_file(self):
-        os.makedirs('./data/cache/')
-        with open('./data/cache/market_cache.json', 'w') as new_cache_file:
+        with open(MARKET_CACHE_JSON, 'w') as new_cache_file:
             new_cache_file.write('{}')
 
     def save_cache(self):
 
-        with open('./data/cache/market_cache.json', 'w') as cache_file:
+        with open(MARKET_CACHE_JSON, 'w') as cache_file:
             json.dump(self.market_cache, cache_file)
 
     def get_id_by_name(self, name):
