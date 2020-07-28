@@ -3,7 +3,6 @@ from enum import Enum
 import json
 from time import time
 import os
-import src.data as data
 from src.config import *
 
 JITA = 30000142
@@ -28,7 +27,6 @@ class Market:
         self.market_cache = None
 
     def load_dicts(self):
-
         if self.id_to_name is None:
             with open(ID_TO_NAME_JSON) as infile:
                 self.id_to_name = json.load(infile)
@@ -37,51 +35,37 @@ class Market:
             with open(NAME_TO_ID_JSON) as infile:
                 self.name_to_id = json.load(infile)
 
-
     def load_cache(self):
-
         if self.market_cache is None:
             if not os.path.exists(MARKET_CACHE_JSON):
-                self.generate_cache_file()
+                with open(MARKET_CACHE_JSON, 'w') as new_cache_file:
+                    new_cache_file.write('{}')
             with open(MARKET_CACHE_JSON) as cache_file:
                 self.market_cache = json.load(cache_file)
         return self.market_cache
 
-    def generate_cache_file(self):
-        with open(MARKET_CACHE_JSON, 'w') as new_cache_file:
-            new_cache_file.write('{}')
-
     def save_cache(self):
-
         with open(MARKET_CACHE_JSON, 'w') as cache_file:
             json.dump(self.market_cache, cache_file)
 
     def get_id_by_name(self, name):
-
         self.load_dicts()
         return self.name_to_id[name]
 
-
     def get_name_by_id(self, item_id):
-
         self.load_dicts()
         return self.id_to_name[item_id]
 
-
     def get_market_attr_by_id(self, itemid, mode):
-
         self.load_cache()
 
         try:
-
             current_time = time()
             difference = current_time - self.market_cache[itemid][mode.value[0]][mode.value[1]]['time']
-
             if difference < 3600:
                 return self.market_cache[itemid][mode.value[0]][mode.value[1]]['val']
             else:
                 raise KeyError
-
         except KeyError:
 
             URL = r'http://api.evemarketer.com/ec/marketstat/json'
@@ -99,7 +83,6 @@ class Market:
             self.save_cache()
 
         return self.market_cache[itemid][mode.value[0]][mode.value[1]]['val']
-
 
     def get_market_attr_by_name(self, name, mode):
         return self.get_market_attr_by_id(self.get_id_by_name(name), mode)
