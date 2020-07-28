@@ -4,21 +4,19 @@ import pandas
 import os
 from src.config import *
 
+
+def create_path(path):
+    try:
+        os.makedirs(path)
+    except FileExistsError:
+        pass
+
+
 def generate_generated():
-    try:
-        os.makedirs(GENERATED_PATH)
-    except FileExistsError:
-        pass
+    paths = [GENERATED_PATH, DICTS_PATH, CACHE_PATH, INVTYPES_CSV_PATH]
+    for path in paths:
+        create_path(path)
 
-    try:
-        os.makedirs(DICTS_PATH)
-    except FileExistsError:
-        pass
-
-    try:
-        os.makedirs(CACHE_PATH)
-    except FileExistsError:
-        pass
 
 def generate_lookup_dicts():
 

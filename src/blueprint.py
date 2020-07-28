@@ -1,11 +1,8 @@
 from src.market import Mode
 from src.decryptor import Decryptor
-import os
 from src.config import *
 from src.data import init
-
-# invention_path = INVENTIONS_PATH
-# decryptors_path = DECRYPTORS_PATH
+import json
 
 init()
 decryptors = Decryptor.get_decryptors(DECRYPTORS_JSON)
@@ -101,45 +98,27 @@ class Blueprint:
 
         blueprints = {}
 
-        for filename in os.listdir(blueprints_path):
-            with open(blueprints_path + '/' + filename) as blueprint_file:
+        invention_json = json.load(open(INVENTION_PATH))
+        blueprints_json = json.load(open(BLUEPRINTS_PATH))
 
-                firstline = blueprint_file.readline()
+        for blueprint_name, blueprint_attributes in blueprints_json.items():
+            blueprint = Blueprint()
+            blueprint.name = blueprint_name
+            blueprint.input_items = blueprint_attributes['mats']
+            blueprint.output_quant = blueprint_attributes['output_quantity']
+            blueprint.runs = blueprint_attributes['runs']
 
-                # Try to extract the first line as the number of runs
-                try:
-                    num_runs = int(firstline)
-                except:
-                    blueprint_file.seek(0)
-                    num_runs = 1
+            if blueprint_name in invention_json:
+                invention_json_object = invention_json[blueprint_name]
+                blueprint.invented = True
+                blueprint.base_invention_chance = invention_json_object['base_invention_chance']
+                blueprint.invented_runs = invention_json_object['invented_runs']
+                blueprint.invented_ME = invention_json_object['invented_ME']
+                blueprint.invented_TE = invention_json_object['invented_TE']
+                blueprint.datacore1 = invention_json_object['datacore1']
+                blueprint.datacore2 = invention_json_object['datacore2']
 
-                # Second line has our outputs
-                outputname, outputquantity = Blueprint.parse_string(blueprint_file.readline())
-                input_dict = {}
-
-                for line in blueprint_file:
-                    item_name, item_quantity = Blueprint.parse_string(line)
-                    input_dict.setdefault(item_name, item_quantity)
-
-                blueprint = Blueprint()
-                blueprint.name = outputname
-                blueprint.input_items = input_dict
-                blueprint.output_quant = outputquantity
-                blueprint.runs = num_runs
-
-                try:
-                    with open(INVENTIONS_PATH + filename) as invention_file:
-                        blueprint.invented = True
-                        blueprint.base_invention_chance,\
-                        blueprint.invented_runs,\
-                        blueprint.invented_ME,\
-                        blueprint.invented_TE = (float(token) for token in next(invention_file).strip().split())
-                        blueprint.datacore1 = Blueprint.parse_string(next(invention_file).strip())[0]
-                        blueprint.datacore2 = Blueprint.parse_string(next(invention_file).strip())[0]
-                except FileNotFoundError:
-                    pass
-
-                blueprints.setdefault(outputname, blueprint)
+            blueprints.setdefault(blueprint.name, blueprint)
 
         return blueprints
 
