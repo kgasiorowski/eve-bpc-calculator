@@ -102,8 +102,12 @@ class Blueprint:
         blueprints = {}
 
         for filename in os.listdir(blueprints_path):
-            with open(blueprints_path + '/' + filename) as blueprint_file:
 
+            # This code will be removed later when json blueprints are fully implemented
+            if filename == 'json':
+                continue
+
+            with open(blueprints_path + '/' + filename) as blueprint_file:
                 firstline = blueprint_file.readline()
 
                 # Try to extract the first line as the number of runs
