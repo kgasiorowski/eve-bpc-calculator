@@ -28,7 +28,7 @@ def generate_lookup_dicts():
 
 
 def convertXLStoCSVandFilter():
-    xls_data = pandas.read_excel('../data/invTypes.xls', 'Sheet1', index_col='TYPEID')
+    xls_data = pandas.read_excel('./data/invTypes.xls', 'Sheet1', index_col='TYPEID')
     xls_data = xls_data[['TYPENAME', 'VOLUME']]
     xls_data.to_csv('./data/invTypes.csv')
 
