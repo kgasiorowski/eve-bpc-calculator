@@ -7,7 +7,7 @@ DECRYPTORS_PATH = DATA_PATH + '/decryptors'
 DECRYPTORS_JSON = DECRYPTORS_PATH + '/decryptors.json'
 INVENTIONS_PATH = DATA_PATH + '/invention'
 
-INVTYPES_XLS = DATA_PATH + '/invTypes.xls'
+INVTYPES_XLS = DATA_PATH + '/invTypes/invTypes.xls'
 INVTYPES_CSV = GENERATED_PATH + '/invTypes.csv'
 
 DICTS_PATH = GENERATED_PATH + '/dicts'
