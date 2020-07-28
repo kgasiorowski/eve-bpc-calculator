@@ -23,6 +23,10 @@ class Market:
         self.id_to_name = None
         self.name_to_id = None
         self.market_cache = None
+        self.request_counter = 0
+
+        self.load_dicts()
+        self.load_cache()
 
     def load_dicts(self):
         if self.id_to_name is None:
@@ -44,19 +48,15 @@ class Market:
 
     def save_cache(self):
         with open(MARKET_CACHE_JSON, 'w') as cache_file:
-            json.dump(self.market_cache, cache_file)
+            cache_file.write(json.dumps(self.market_cache, indent=4, sort_keys=True))
 
     def get_id_by_name(self, name):
-        self.load_dicts()
         return self.name_to_id[name]
 
     def get_name_by_id(self, item_id):
-        self.load_dicts()
         return self.id_to_name[item_id]
 
     def get_market_attr_by_id(self, itemid, mode):
-        self.load_cache()
-
         try:
             # Attempt to access the cache age for this item.
             cache_timestamp = self.market_cache[itemid][mode.value[0]][mode.value[1]]['time']
@@ -73,14 +73,33 @@ class Market:
             PARAMS = {'typeid': itemid,
                       'usesystem': JITA_ID}
 
-            json_response = requests.get(URL, PARAMS).json()
+            json_response = requests.get(URL, PARAMS).json()[0]
 
             self.market_cache.setdefault(itemid, {})
-            self.market_cache[itemid].setdefault(mode.value[0], {})
-            self.market_cache[itemid][mode.value[0]].setdefault(mode.value[1], {})
+            self.market_cache[itemid].setdefault('buy', {})
+            self.market_cache[itemid].setdefault('sell', {})
 
-            self.market_cache[itemid][mode.value[0]][mode.value[1]]['val'] = [response[mode.value[0]][mode.value[1]] for response in json_response][0]
-            self.market_cache[itemid][mode.value[0]][mode.value[1]]['time'] = int(time())
+            self.market_cache[itemid]['buy'].setdefault('min', {})
+            self.market_cache[itemid]['buy'].setdefault('max', {})
+            self.market_cache[itemid]['buy'].setdefault('avg', {})
+            self.market_cache[itemid]['sell'].setdefault('min', {})
+            self.market_cache[itemid]['sell'].setdefault('max', {})
+            self.market_cache[itemid]['sell'].setdefault('avg', {})
+
+            self.market_cache[itemid]['buy']['min'].setdefault('time', current_time)
+            self.market_cache[itemid]['buy']['max'].setdefault('time', current_time)
+            self.market_cache[itemid]['buy']['avg'].setdefault('time', current_time)
+            self.market_cache[itemid]['sell']['min'].setdefault('time', current_time)
+            self.market_cache[itemid]['sell']['max'].setdefault('time', current_time)
+            self.market_cache[itemid]['sell']['avg'].setdefault('time', current_time)
+
+            self.market_cache[itemid]['buy']['min'].setdefault('val', json_response['buy']['min'])
+            self.market_cache[itemid]['buy']['max'].setdefault('val', json_response['buy']['max'])
+            self.market_cache[itemid]['buy']['avg'].setdefault('val', json_response['buy']['avg'])
+            self.market_cache[itemid]['sell']['min'].setdefault('val', json_response['sell']['min'])
+            self.market_cache[itemid]['sell']['max'].setdefault('val', json_response['sell']['max'])
+            self.market_cache[itemid]['sell']['avg'].setdefault('val', json_response['sell']['avg'])
+
             self.save_cache()
 
         return self.market_cache[itemid][mode.value[0]][mode.value[1]]['val']
