@@ -5,7 +5,7 @@ SRC_PATH = './src'
 BLUEPRINTS_PATH = DATA_PATH + '/blueprints/old-format'
 DECRYPTORS_PATH = DATA_PATH + '/decryptors'
 DECRYPTORS_JSON = DECRYPTORS_PATH + '/decryptors.json'
-INVENTIONS_PATH = DATA_PATH + '/invention'
+INVENTIONS_PATH = DATA_PATH + '/invention/old-format'
 
 INVTYPES_XLS = DATA_PATH + '/invTypes/invTypes.xls'
 INVTYPES_CSV = GENERATED_PATH + '/invTypes.csv'
