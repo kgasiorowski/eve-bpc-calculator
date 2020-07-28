@@ -1,11 +1,9 @@
 import requests
-from enum import Enum
 import json
-from time import time
 import os
+from enum import Enum
+from time import time
 from src.config import *
-
-
 
 
 class Mode(Enum):
