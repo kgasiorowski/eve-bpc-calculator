@@ -5,7 +5,7 @@ from time import time
 import os
 from src.config import *
 
-JITA = 30000142
+
 
 
 class Mode(Enum):
