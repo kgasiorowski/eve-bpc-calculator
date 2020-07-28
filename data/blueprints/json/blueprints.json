@@ -6,6 +6,7 @@
             "Tritanium": 458,
             "Zero-Point Condensate": 125
         },
+        "output_quantity": 5000,
         "runs": 5
     },
     "Baryon Exotic Plasma S": {
@@ -15,6 +16,7 @@
             "Tritanium": 27,
             "Zero-Point Condensate": 45
         },
+        "output_quantity": 5000,
         "runs": 5
     },
     "Damavik": {
@@ -29,6 +31,7 @@
             "Zero-Point Condensate": 150,
             "Zydrine": 20
         },
+        "output_quantity": 1,
         "runs": 1
     },
     "Draugur": {
@@ -45,6 +48,7 @@
             "Trinary State Processor": 1050,
             "Zero-Point Field Manipulator": 550
         },
+        "output_quantity": 1,
         "runs": 1
     },
     "Drekavac": {
@@ -59,6 +63,7 @@
             "Zero-Point Condensate": 560,
             "Zydrine": 1402
         },
+        "output_quantity": 1,
         "runs": 1
     },
     "Entropic Radiation Sink I": {
@@ -69,6 +74,7 @@
             "Tritanium": 676,
             "Zydrine": 6
         },
+        "output_quantity": 1,
         "runs": 5
     },
     "Entropic Radiation Sink II": {
@@ -80,6 +86,7 @@
             "Nanoelectrical Microprocessor": 8,
             "R.A.M.- Electronics": 1
         },
+        "output_quantity": 1,
         "runs": 1
     },
     "Heavy Compact Entropic Disintegrator": {
@@ -92,6 +99,7 @@
             "Tritanium": 19089,
             "Zero-Point Condensate": 660
         },
+        "output_quantity": 1,
         "runs": 1
     },
     "Heavy Entropic Disintegrator I": {
@@ -104,6 +112,7 @@
             "Tritanium": 19089,
             "Zero-Point Condensate": 660
         },
+        "output_quantity": 1,
         "runs": 5
     },
     "Heavy Entropic Disintegrator II": {
@@ -114,6 +123,7 @@
             "R.A.M.- Weapon Tech": 1,
             "Robotics": 5
         },
+        "output_quantity": 1,
         "runs": 1
     },
     "Heavy Mutadaptive Compact Remote Armor Repairer": {
@@ -124,6 +134,7 @@
             "Tritanium": 1506,
             "Zero-Point Condensate": 300
         },
+        "output_quantity": 1,
         "runs": 5
     },
     "Heavy Mutadaptive Remote Armor Repairer I": {
@@ -134,6 +145,7 @@
             "Tritanium": 1506,
             "Zero-Point Condensate": 280
         },
+        "output_quantity": 1,
         "runs": 5
     },
     "Heavy Mutadaptive Remote Armor Repairer II": {
@@ -144,6 +156,7 @@
             "R.A.M.- Armor/Hull Tech": 1,
             "Robotics": 12
         },
+        "output_quantity": 1,
         "runs": 1
     },
     "Heavy Scoped Entropic Disintegrator": {
@@ -156,6 +169,7 @@
             "Tritanium": 19089,
             "Zero-Point Condensate": 660
         },
+        "output_quantity": 1,
         "runs": 1
     },
     "Ikitursa": {
@@ -172,6 +186,7 @@
             "Vedmak": 1,
             "Zero-Point Field Manipulator": 800
         },
+        "output_quantity": 1,
         "runs": 1
     },
     "Kikimora": {
@@ -186,6 +201,7 @@
             "Zero-Point Condensate": 180,
             "Zydrine": 22
         },
+        "output_quantity": 1,
         "runs": 1
     },
     "Leshak": {
@@ -200,6 +216,7 @@
             "Zero-Point Condensate": 850,
             "Zydrine": 21186
         },
+        "output_quantity": 1,
         "runs": 1
     },
     "Light Compact Entropic Disintegrator": {
@@ -211,6 +228,7 @@
             "Tritanium": 3556,
             "Zero-Point Condensate": 450
         },
+        "output_quantity": 1,
         "runs": 1
     },
     "Light Entropic Disintegrator I": {
@@ -222,6 +240,7 @@
             "Tritanium": 3556,
             "Zero-Point Condensate": 450
         },
+        "output_quantity": 1,
         "runs": 5
     },
     "Light Entropic Disintegrator II": {
@@ -232,6 +251,7 @@
             "R.A.M.- Weapon Tech": 1,
             "Robotics": 1
         },
+        "output_quantity": 1,
         "runs": 1
     },
     "Meson Exotic Plasma L": {
@@ -241,6 +261,7 @@
             "Tritanium": 458,
             "Zero-Point Condensate": 125
         },
+        "output_quantity": 5000,
         "runs": 5
     },
     "Meson Exotic Plasma M": {
@@ -250,6 +271,7 @@
             "Tritanium": 143,
             "Zero-Point Condensate": 85
         },
+        "output_quantity": 5000,
         "runs": 5
     },
     "Meson Exotic Plasma S": {
@@ -259,6 +281,7 @@
             "Tritanium": 27,
             "Zero-Point Condensate": 45
         },
+        "output_quantity": 5000,
         "runs": 5
     },
     "Mystic L": {
@@ -269,6 +292,7 @@
             "R.A.M.- Ammunition Tech": 1,
             "Zero-Point Condensate": 280
         },
+        "output_quantity": 5000,
         "runs": 5
     },
     "Mystic M": {
@@ -279,6 +303,7 @@
             "R.A.M.- Ammunition Tech": 1,
             "Zero-Point Condensate": 145
         },
+        "output_quantity": 5000,
         "runs": 5
     },
     "Mystic S": {
@@ -289,6 +314,7 @@
             "R.A.M.- Ammunition Tech": 1,
             "Zero-Point Condensate": 85
         },
+        "output_quantity": 5000,
         "runs": 5
     },
     "Nergal": {
@@ -305,6 +331,7 @@
             "Trinary State Processor": 624,
             "Zero-Point Field Manipulator": 315
         },
+        "output_quantity": 1,
         "runs": 1
     },
     "Occult L": {
@@ -315,6 +342,7 @@
             "R.A.M.- Ammunition Tech": 1,
             "Zero-Point Condensate": 280
         },
+        "output_quantity": 5000,
         "runs": 5
     },
     "Occult M": {
@@ -325,6 +353,7 @@
             "R.A.M.- Ammunition Tech": 1,
             "Zero-Point Condensate": 145
         },
+        "output_quantity": 5000,
         "runs": 5
     },
     "Rodiva": {
@@ -339,6 +368,7 @@
             "Zero-Point Condensate": 546,
             "Zydrine": 1202
         },
+        "output_quantity": 1,
         "runs": 1
     },
     "Supratidal Compact Entropic Disintegrator": {
@@ -353,6 +383,7 @@
             "Zero-Point Condensate": 940,
             "Zydrine": 62
         },
+        "output_quantity": 1,
         "runs": 1
     },
     "Supratidal Entropic Disintegrator I": {
@@ -367,6 +398,7 @@
             "Zero-Point Condensate": 940,
             "Zydrine": 62
         },
+        "output_quantity": 1,
         "runs": 5
     },
     "Supratidal Entropic Disintegrator II": {
@@ -377,6 +409,7 @@
             "Robotics": 14,
             "Supratidal Entropic Disintegrator I": 1
         },
+        "output_quantity": 1,
         "runs": 1
     },
     "Tetryon Exotic Plasma L": {
@@ -386,6 +419,7 @@
             "Tritanium": 458,
             "Zero-Point Condensate": 125
         },
+        "output_quantity": 5000,
         "runs": 5
     },
     "Vedmak": {
@@ -400,6 +434,7 @@
             "Zero-Point Condensate": 400,
             "Zydrine": 1202
         },
+        "output_quantity": 1,
         "runs": 1
     },
     "Veles Heavy Entropic Disintegrator": {
@@ -408,6 +443,7 @@
             "Heavy Entropic Disintegrator II": 1,
             "Zero-Point Condensate": 52
         },
+        "output_quantity": 1,
         "runs": 1
     },
     "Veles Light Entropic Disintegrator": {
@@ -416,6 +452,7 @@
             "Light Entropic Disintegrator II": 1,
             "Zero-Point Condensate": 28
         },
+        "output_quantity": 1,
         "runs": 1
     },
     "Veles Supratidal Entropic Disintegrator": {
@@ -424,6 +461,7 @@
             "Supratidal Entropic Disintegrator II": 1,
             "Zero-Point Condensate": 64
         },
+        "output_quantity": 1,
         "runs": 1
     },
     "Zarmazd": {
@@ -440,6 +478,7 @@
             "Tungsten Carbide Armor Plate": 2250,
             "Zero-Point Field Manipulator": 750
         },
+        "output_quantity": 1,
         "runs": 1
     }
 }

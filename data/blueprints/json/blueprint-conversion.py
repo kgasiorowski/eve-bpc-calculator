@@ -36,6 +36,7 @@ if __name__ == "__main__":
             blueprints.setdefault(blueprint_name, {})
             blueprints[blueprint_name].setdefault("runs", num_runs)
             blueprints[blueprint_name].setdefault("mats", {})
+            blueprints[blueprint_name].setdefault("output_quantity", quantity)
 
             for line in blueprint_file:
                 name, quantity = parse_string(line)
