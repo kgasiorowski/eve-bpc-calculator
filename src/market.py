@@ -58,14 +58,17 @@ class Market:
         self.load_cache()
 
         try:
-            current_time = time()
-            difference = current_time - self.market_cache[itemid][mode.value[0]][mode.value[1]]['time']
-            if difference < 3600:
-                return self.market_cache[itemid][mode.value[0]][mode.value[1]]['val']
-            else:
-                raise KeyError
+            # Attempt to access the cache age for this item.
+            cache_timestamp = self.market_cache[itemid][mode.value[0]][mode.value[1]]['time']
         except KeyError:
+            # If unable to timestamp, guarantee refresh
+            cache_timestamp = 0
 
+        current_time = time()
+        cache_age = current_time - cache_timestamp
+        if cache_age < CACHE_LIFETIME:
+            return self.market_cache[itemid][mode.value[0]][mode.value[1]]['val']
+        else:
             URL = r'http://api.evemarketer.com/ec/marketstat/json'
             PARAMS = {'typeid': itemid,
                       'usesystem': JITA}
