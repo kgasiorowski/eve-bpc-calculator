@@ -2,7 +2,7 @@ GENERATED_PATH = './generated'
 DATA_PATH = './data'
 SRC_PATH = './src'
 
-BLUEPRINTS_PATH = DATA_PATH + '/blueprints'
+BLUEPRINTS_PATH = DATA_PATH + '/blueprints/old-format'
 DECRYPTORS_PATH = DATA_PATH + '/decryptors'
 DECRYPTORS_JSON = DECRYPTORS_PATH + '/decryptors.json'
 INVENTIONS_PATH = DATA_PATH + '/invention'
