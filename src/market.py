@@ -71,7 +71,7 @@ class Market:
         else:
             URL = r'http://api.evemarketer.com/ec/marketstat/json'
             PARAMS = {'typeid': itemid,
-                      'usesystem': JITA}
+                      'usesystem': JITA_ID}
 
             json_response = requests.get(URL, PARAMS).json()
 
