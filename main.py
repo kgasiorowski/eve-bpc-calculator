@@ -1,3 +1,5 @@
+#!/usr/local/bin/python3
+
 import src.runner
 
 if __name__ == "__main__":
