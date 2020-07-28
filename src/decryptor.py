@@ -6,11 +6,13 @@ class Decryptor:
 
     market = None
 
-    def __init__(self, name, run_modifier=None, prob_modifier=None):
+    def __init__(self, name, run_modifier=None, prob_modifier=None, TE_modifier=None, ME_modifier=None):
 
         self.name = name
         self.run_modifier = run_modifier
         self.prob_modifier = prob_modifier
+        self.TE_modifier = TE_modifier
+        self.ME_modifier = ME_modifier
 
         if Decryptor.market is None:
             Decryptor.market = mk.Market()
