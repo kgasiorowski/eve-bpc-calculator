@@ -78,20 +78,7 @@ class Blueprint:
         cost_per_invention = datacores + decryptor.price
         num_invention_runs_ratio = derived_invention_chance * derived_runs
         price_per_invented_run = cost_per_invention/num_invention_runs_ratio
-
-        # print(f'Invention cost for {self.name}: {price_per_invented_run} using {decryptor.name}')
-
         return price_per_invented_run
-
-
-    @staticmethod
-    def parse_string(string):
-
-        number = int(string[:string.find(' x ')].replace(',', '').strip())
-        item_name = string[string.rfind(' x ') + 2:].strip()
-
-        return item_name, number
-
 
     @staticmethod
     def initialize_blueprints():
@@ -126,7 +113,6 @@ class Blueprint:
 class BlueprintMarketResults:
 
     def __init__(self):
-
         self.runs = None
         self.input_costs = None
         self.invention_costs = None
