@@ -36,7 +36,7 @@ class Blueprint:
                 decryptor = Blueprint.decryptors['None']
             results.invention_costs = self.__calculate_invention_costs(decryptor)
             results.input_costs += results.invention_costs
-            results.runs += decryptor.run_modifier
+            results.runs += decryptor['runs']
 
         results.revenue = self.__calculate_revenue(sellorders)
         results.profit = results.revenue - results.input_costs
@@ -61,15 +61,15 @@ class Blueprint:
         return Blueprint.market.apply_mode(Blueprint.market.get_market_attr_by_name(self.name), selling_mode) \
                * self.output_quant
 
-    def __calculate_invention_costs(self, decryptor: Decryptor):
+    def __calculate_invention_costs(self, decryptor):
 
         datacores = 2 * Blueprint.market.apply_mode(Blueprint.market.get_market_attr_by_name(self.datacore1), Mode.SELLMIN) +\
                     2 * Blueprint.market.apply_mode(Blueprint.market.get_market_attr_by_name(self.datacore2), Mode.SELLMIN)
 
-        derived_invention_chance = self.base_invention_chance * (1+decryptor.prob_modifier)
-        derived_runs = self.invented_runs + decryptor.run_modifier
+        derived_invention_chance = self.base_invention_chance * (1+decryptor['prob'])
+        derived_runs = self.invented_runs + decryptor['runs']
 
-        cost_per_invention = datacores + decryptor.price
+        cost_per_invention = datacores + decryptor['price']
         num_invention_runs_ratio = derived_invention_chance * derived_runs
         price_per_invented_run = cost_per_invention/num_invention_runs_ratio
         return price_per_invented_run
