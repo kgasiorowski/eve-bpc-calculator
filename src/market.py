@@ -66,6 +66,9 @@ class Market:
         current_time = time()
         cache_age = current_time - cache_timestamp
         if cache_age > CACHE_LIFETIME:
+
+            del self.market_cache[itemid]
+
             URL = r'http://api.evemarketer.com/ec/marketstat/json'
             PARAMS = {'typeid': itemid,
                       'usesystem': JITA_ID}
