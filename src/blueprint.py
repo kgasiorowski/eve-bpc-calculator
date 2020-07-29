@@ -35,8 +35,8 @@ class Blueprint:
         results.input_costs = self.__calculate_costs(buyorders)
 
         if self.invented:
-            if decryptor == None:
-                decryptor = decryptors['None']
+            if decryptor is None:
+                decryptor = Blueprint.decryptors['None']
             results.invention_costs = self.__calculate_invention_costs(decryptor)
             results.input_costs += results.invention_costs
             results.runs += decryptor.run_modifier
