@@ -77,8 +77,6 @@ class Blueprint:
     def load_blueprints():
 
         blueprints = {}
-
-        invention_json = json.load(open(INVENTION_PATH))
         blueprints_json = json.load(open(BLUEPRINTS_PATH))
 
         for blueprint_name, blueprint_attributes in blueprints_json.items():
@@ -88,15 +86,15 @@ class Blueprint:
             blueprint.output_quant = blueprint_attributes['output_quantity']
             blueprint.runs = blueprint_attributes['runs']
 
-            if blueprint_name in invention_json:
-                invention_json_object = invention_json[blueprint_name]
+            if 'invention' in blueprint_attributes:
                 blueprint.invented = True
-                blueprint.base_invention_chance = invention_json_object['base_invention_chance']
-                blueprint.invented_runs = invention_json_object['invented_runs']
-                blueprint.invented_ME = invention_json_object['invented_ME']
-                blueprint.invented_TE = invention_json_object['invented_TE']
-                blueprint.datacore1 = invention_json_object['datacore1']
-                blueprint.datacore2 = invention_json_object['datacore2']
+                blueprint_invention_attributes = blueprint_attributes['invention']
+                blueprint.base_invention_chance = blueprint_invention_attributes['base_invention_chance']
+                blueprint.invented_runs = blueprint_invention_attributes['invented_runs']
+                blueprint.invented_ME = blueprint_invention_attributes['invented_ME']
+                blueprint.invented_TE = blueprint_invention_attributes['invented_TE']
+                blueprint.datacore1 = blueprint_invention_attributes['datacore1']
+                blueprint.datacore2 = blueprint_invention_attributes['datacore2']
 
             blueprints.setdefault(blueprint.name, blueprint)
 
