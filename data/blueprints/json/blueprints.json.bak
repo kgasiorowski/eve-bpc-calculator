@@ -78,14 +78,6 @@
         "runs": 5
     },
     "Entropic Radiation Sink II": {
-        "invention": {
-            "base_invention_chance": 0.408,
-            "datacore1": "Datacore - Electronic Engineering",
-            "datacore2": "Datacore - Mechanical Engineering",
-            "invented_ME": 2.0,
-            "invented_TE": 4.0,
-            "invented_runs": 10.0
-        },
         "mats": {
             "Entropic Radiation Sink I": 1,
             "Mechanical Parts": 8,
@@ -124,14 +116,6 @@
         "runs": 5
     },
     "Heavy Entropic Disintegrator II": {
-        "invention": {
-            "base_invention_chance": 0.419,
-            "datacore1": "Datacore - High Energy Physics",
-            "datacore2": "Datacore - Laser Physics",
-            "invented_ME": 2.0,
-            "invented_TE": 4.0,
-            "invented_runs": 10.0
-        },
         "mats": {
             "Heavy Entropic Disintegrator I": 1,
             "Laser Focusing Crystals": 18,
@@ -351,14 +335,6 @@
         "runs": 1
     },
     "Occult L": {
-        "invention": {
-            "base_invention_chance": 0.385,
-            "datacore1": "Datacore - High Energy Physics",
-            "datacore2": "Datacore - Laser Physics",
-            "invented_ME": 2.0,
-            "invented_TE": 4.0,
-            "invented_runs": 5.0
-        },
         "mats": {
             "Crystalline Isogen-10": 14,
             "Fullerides": 600,
@@ -370,14 +346,6 @@
         "runs": 5
     },
     "Occult M": {
-        "invention": {
-            "base_invention_chance": 0.385,
-            "datacore1": "Datacore - High Energy Physics",
-            "datacore2": "Datacore - Laser Physics",
-            "invented_ME": 2.0,
-            "invented_TE": 4.0,
-            "invented_runs": 5.0
-        },
         "mats": {
             "Crystalline Isogen-10": 9,
             "Fullerides": 240,
@@ -497,14 +465,6 @@
         "runs": 1
     },
     "Zarmazd": {
-        "invention": {
-            "base_invention_chance": 0.336,
-            "datacore1": "Datacore - Amarrian Starship Engineering",
-            "datacore2": "Datacore - Triglavian Quantum Engineering",
-            "invented_ME": 2.0,
-            "invented_TE": 4.0,
-            "invented_runs": 1.0
-        },
         "mats": {
             "Lattice Locked Dekaisogen": 80,
             "Linear Shield Emitter": 150,
