@@ -24,7 +24,7 @@ class Decryptor:
 
 
     @staticmethod
-    def get_decryptors():
+    def load_decryptors():
 
         with open(DECRYPTORS_JSON) as decryptors_file:
             raw_decryptors_dict = json.load(decryptors_file)

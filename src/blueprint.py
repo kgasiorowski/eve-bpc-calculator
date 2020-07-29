@@ -5,7 +5,7 @@ from src.data import init
 import json
 
 init()
-decryptors = Decryptor.get_decryptors()
+decryptors = Decryptor.load_decryptors()
 
 
 class Blueprint:
@@ -17,7 +17,6 @@ class Blueprint:
         self.name = None
         self.output_quant = None
         self.runs = None
-        self.market = None
 
         self.invented = False
         self.base_invention_chance = None
@@ -28,7 +27,7 @@ class Blueprint:
         self.datacore2 = None
         self.invention_cost = None
 
-    def get_market_results(self, buyorders=True, sellorders=True):
+    def get_market_results(self, buyorders=True, sellorders=True, decryptor=None):
 
         results = BlueprintMarketResults()
 
@@ -36,9 +35,8 @@ class Blueprint:
         results.input_costs = self.__calculate_costs(buyorders)
 
         if self.invented:
-
-            decryptor = decryptors['Attainment Decryptor']
-
+            if decryptor == None:
+                decryptor = decryptors['None']
             results.invention_costs = self.__calculate_invention_costs(decryptor)
             results.input_costs += results.invention_costs
             results.runs += decryptor.run_modifier
@@ -46,9 +44,7 @@ class Blueprint:
         results.revenue = self.__calculate_revenue(sellorders)
         results.profit = results.revenue - results.input_costs
         results.profit_per_bpc = results.profit * results.runs
-
         results.profit_margin = results.profit / results.input_costs
-
         return results
 
     def __calculate_costs(self, buyorders):
@@ -81,7 +77,7 @@ class Blueprint:
         return price_per_invented_run
 
     @staticmethod
-    def initialize_blueprints():
+    def load_blueprints():
 
         blueprints = {}
 

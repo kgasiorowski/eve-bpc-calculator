@@ -2,8 +2,7 @@ from src.blueprint import Blueprint
 import argparse
 from src import market as mk
 from src.decryptor import Decryptor
-from src.config import *
-from src.data import init
+
 
 def print_item(item, result, counter=1):
     print(f'{counter:3d}. '
@@ -13,9 +12,11 @@ def print_item(item, result, counter=1):
           f'{result.profit_margin*100:10,.2f}% '
           f'{result.invention_costs if result.invention_costs is not None else 0:>14,.2f}')
 
+
 def print_header(buyorders=True, sellorders=True):
     print(f'\nUsing buy orders: {"Yes" if buyorders else "No"}\nUsing sell orders: {"Yes" if sellorders else "No"}\n')
     print(f'{"":3s}  {"Blueprint Name":50s}{"Total profit":>20s}{"Breakdown":>20s} x {"runs":4} {"Margin":>11} {"Invention cost"}')
+
 
 def main():
 
@@ -42,7 +43,7 @@ def main():
     Blueprint.market = market
 
     # Initialize our list of blueprints
-    blueprints = Blueprint.initialize_blueprints()
+    blueprints = Blueprint.load_blueprints()
 
     if args.name is not None:
 
