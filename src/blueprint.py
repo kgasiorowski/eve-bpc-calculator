@@ -1,23 +1,19 @@
 from src.market import Mode
 from src.decryptor import Decryptor
 from src.config import *
-from src.data import init
 import json
-
-init()
-decryptors = Decryptor.get_decryptors()
 
 
 class Blueprint:
 
     market = None
+    decryptors = None
 
     def __init__(self):
         self.input_items = None
         self.name = None
         self.output_quant = None
         self.runs = None
-        self.market = None
 
         self.invented = False
         self.base_invention_chance = None
@@ -28,7 +24,7 @@ class Blueprint:
         self.datacore2 = None
         self.invention_cost = None
 
-    def get_market_results(self, buyorders=True, sellorders=True):
+    def get_market_results(self, buyorders=True, sellorders=True, decryptor=None):
 
         results = BlueprintMarketResults()
 
@@ -36,9 +32,8 @@ class Blueprint:
         results.input_costs = self.__calculate_costs(buyorders)
 
         if self.invented:
-
-            decryptor = decryptors['Attainment Decryptor']
-
+            if decryptor is None:
+                decryptor = Blueprint.decryptors['None']
             results.invention_costs = self.__calculate_invention_costs(decryptor)
             results.input_costs += results.invention_costs
             results.runs += decryptor.run_modifier
@@ -46,9 +41,7 @@ class Blueprint:
         results.revenue = self.__calculate_revenue(sellorders)
         results.profit = results.revenue - results.input_costs
         results.profit_per_bpc = results.profit * results.runs
-
         results.profit_margin = results.profit / results.input_costs
-
         return results
 
     def __calculate_costs(self, buyorders):
@@ -57,7 +50,7 @@ class Blueprint:
 
         for item_name, amount in self.input_items.items():
             buying_mode = Mode.BUYMAX if buyorders else Mode.SELLMIN
-            item_price = Blueprint.market.get_market_attr_by_name(item_name, buying_mode)
+            item_price = Blueprint.market.apply_mode(Blueprint.market.get_market_attr_by_name(item_name), buying_mode)
             input_costs += item_price * amount
 
         return input_costs
@@ -65,12 +58,13 @@ class Blueprint:
     def __calculate_revenue(self, sellorders):
 
         selling_mode = Mode.SELLMIN if sellorders else Mode.BUYMAX
-        return Blueprint.market.get_market_attr_by_name(self.name, selling_mode) * self.output_quant
+        return Blueprint.market.apply_mode(Blueprint.market.get_market_attr_by_name(self.name), selling_mode) \
+               * self.output_quant
 
     def __calculate_invention_costs(self, decryptor: Decryptor):
 
-        datacores = 2 * Blueprint.market.get_market_attr_by_name(self.datacore1, Mode.SELLMIN) +\
-                    2 * Blueprint.market.get_market_attr_by_name(self.datacore2, Mode.SELLMIN)
+        datacores = 2 * Blueprint.market.apply_mode(Blueprint.market.get_market_attr_by_name(self.datacore1), Mode.SELLMIN) +\
+                    2 * Blueprint.market.apply_mode(Blueprint.market.get_market_attr_by_name(self.datacore2), Mode.SELLMIN)
 
         derived_invention_chance = self.base_invention_chance * (1+decryptor.prob_modifier)
         derived_runs = self.invented_runs + decryptor.run_modifier
@@ -78,23 +72,10 @@ class Blueprint:
         cost_per_invention = datacores + decryptor.price
         num_invention_runs_ratio = derived_invention_chance * derived_runs
         price_per_invented_run = cost_per_invention/num_invention_runs_ratio
-
-        # print(f'Invention cost for {self.name}: {price_per_invented_run} using {decryptor.name}')
-
         return price_per_invented_run
 
-
     @staticmethod
-    def parse_string(string):
-
-        number = int(string[:string.find(' x ')].replace(',', '').strip())
-        item_name = string[string.rfind(' x ') + 2:].strip()
-
-        return item_name, number
-
-
-    @staticmethod
-    def initialize_blueprints():
+    def load_blueprints():
 
         blueprints = {}
 
@@ -126,7 +107,6 @@ class Blueprint:
 class BlueprintMarketResults:
 
     def __init__(self):
-
         self.runs = None
         self.input_costs = None
         self.invention_costs = None

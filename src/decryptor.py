@@ -17,16 +17,21 @@ class Decryptor:
         if Decryptor.market is None:
             Decryptor.market = mk.Market()
 
-        self.price = Decryptor.market.get_market_attr_by_name(self.name, mk.Mode.SELLMIN) if name != "None" else 0
+        self.price = Decryptor.market.apply_mode(Decryptor.market.get_market_attr_by_name(self.name), mk.Mode.SELLMIN) \
+            if name != "None" else 0
 
     def __str__(self):
         return f'\'{self.name}\' -> {self.run_modifier} -> {self.prob_modifier} -> {self.price}'
 
 
     @staticmethod
-    def get_decryptors():
+    def load_decryptors():
 
         with open(DECRYPTORS_JSON) as decryptors_file:
-           decryptors_dict = json.load(decryptors_file)
+            raw_decryptors_dict = json.load(decryptors_file)
 
-        return {decryptor['name']:Decryptor(decryptor['name'], decryptor['runs'], decryptor['prob']) for decryptor in decryptors_dict}
+        decryptors = {}
+        for decryptor in raw_decryptors_dict:
+            decryptors.setdefault(decryptor['name'], Decryptor(decryptor['name'], decryptor['runs'], decryptor['prob']))
+
+        return decryptors

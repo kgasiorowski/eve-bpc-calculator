@@ -17,3 +17,7 @@ NAME_TO_ID_JSON = DICTS_PATH + '/name_to_id.json'
 
 CACHE_PATH = GENERATED_PATH + '/cache'
 MARKET_CACHE_JSON = CACHE_PATH + '/market_cache.json'
+
+JITA_ID = 30000142
+
+CACHE_LIFETIME = 3600
