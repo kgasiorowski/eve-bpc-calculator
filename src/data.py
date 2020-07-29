@@ -2,7 +2,7 @@ import csv
 import json
 import pandas
 import os
-from src.config import *
+from src.config.config import *
 
 
 def create_path(path):

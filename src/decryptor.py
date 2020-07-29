@@ -1,6 +1,6 @@
 import json
 from src.market import *
-from src.config import DECRYPTORS_JSON
+from src.config.config import DECRYPTORS_JSON
 
 
 class Decryptor:

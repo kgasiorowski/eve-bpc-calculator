@@ -3,7 +3,7 @@ import json
 import os
 from enum import Enum
 from time import time
-from src.config import *
+from src.config.config import *
 
 
 class Mode(Enum):

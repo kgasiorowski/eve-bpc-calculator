@@ -1,7 +1,7 @@
 import json
 from src.market import *
 from src.decryptor import Decryptor
-from src.config import *
+from src.config.config import *
 
 
 
