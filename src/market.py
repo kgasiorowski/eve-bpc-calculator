@@ -55,10 +55,10 @@ class Market:
     def get_name_by_id(self, item_id):
         return self.id_to_name[item_id]
 
-    def get_market_attr_by_id(self, itemid, mode):
+    def get_market_attr_by_id(self, itemid):
         try:
             # Attempt to access the cache age for this item.
-            cache_timestamp = self.market_cache[itemid][mode.value[0]][mode.value[1]]['time']
+            cache_timestamp = self.market_cache[itemid]['cache-age']
         except KeyError:
             # If unable to timestamp, guarantee refresh
             cache_timestamp = 0
@@ -79,6 +79,7 @@ class Market:
             self.market_cache.setdefault(itemid, {})
             self.market_cache[itemid].setdefault('buy', {})
             self.market_cache[itemid].setdefault('sell', {})
+            self.market_cache[itemid].setdefault('cache-age', current_time)
 
             self.market_cache[itemid]['buy'].setdefault('min', {})
             self.market_cache[itemid]['buy'].setdefault('max', {})
@@ -86,13 +87,6 @@ class Market:
             self.market_cache[itemid]['sell'].setdefault('min', {})
             self.market_cache[itemid]['sell'].setdefault('max', {})
             self.market_cache[itemid]['sell'].setdefault('avg', {})
-
-            self.market_cache[itemid]['buy']['min'].setdefault('time', current_time)
-            self.market_cache[itemid]['buy']['max'].setdefault('time', current_time)
-            self.market_cache[itemid]['buy']['avg'].setdefault('time', current_time)
-            self.market_cache[itemid]['sell']['min'].setdefault('time', current_time)
-            self.market_cache[itemid]['sell']['max'].setdefault('time', current_time)
-            self.market_cache[itemid]['sell']['avg'].setdefault('time', current_time)
 
             self.market_cache[itemid]['buy']['min'].setdefault('val', json_response['buy']['min'])
             self.market_cache[itemid]['buy']['max'].setdefault('val', json_response['buy']['max'])
@@ -103,7 +97,11 @@ class Market:
 
             self.save_cache()
 
-        return self.market_cache[itemid][mode.value[0]][mode.value[1]]['val']
+        return self.market_cache[itemid]
 
-    def get_market_attr_by_name(self, name, mode):
-        return self.get_market_attr_by_id(self.get_id_by_name(name), mode)
+    def get_market_attr_by_name(self, name):
+        return self.get_market_attr_by_id(self.get_id_by_name(name))
+
+    @staticmethod
+    def apply_mode(value, mode):
+        return value[mode.value[0]][mode.value[1]]['val']

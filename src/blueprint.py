@@ -50,7 +50,7 @@ class Blueprint:
 
         for item_name, amount in self.input_items.items():
             buying_mode = Mode.BUYMAX if buyorders else Mode.SELLMIN
-            item_price = Blueprint.market.get_market_attr_by_name(item_name, buying_mode)
+            item_price = Blueprint.market.apply_mode(Blueprint.market.get_market_attr_by_name(item_name), buying_mode)
             input_costs += item_price * amount
 
         return input_costs
@@ -58,12 +58,13 @@ class Blueprint:
     def __calculate_revenue(self, sellorders):
 
         selling_mode = Mode.SELLMIN if sellorders else Mode.BUYMAX
-        return Blueprint.market.get_market_attr_by_name(self.name, selling_mode) * self.output_quant
+        return Blueprint.market.apply_mode(Blueprint.market.get_market_attr_by_name(self.name), selling_mode) \
+               * self.output_quant
 
     def __calculate_invention_costs(self, decryptor: Decryptor):
 
-        datacores = 2 * Blueprint.market.get_market_attr_by_name(self.datacore1, Mode.SELLMIN) +\
-                    2 * Blueprint.market.get_market_attr_by_name(self.datacore2, Mode.SELLMIN)
+        datacores = 2 * Blueprint.market.apply_mode(Blueprint.market.get_market_attr_by_name(self.datacore1), Mode.SELLMIN) +\
+                    2 * Blueprint.market.apply_mode(Blueprint.market.get_market_attr_by_name(self.datacore2), Mode.SELLMIN)
 
         derived_invention_chance = self.base_invention_chance * (1+decryptor.prob_modifier)
         derived_runs = self.invented_runs + decryptor.run_modifier
