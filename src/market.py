@@ -23,7 +23,6 @@ class Market:
         self.id_to_name = None
         self.name_to_id = None
         self.market_cache = None
-        self.request_counter = 0
 
         self.load_dicts()
         self.load_cache()
