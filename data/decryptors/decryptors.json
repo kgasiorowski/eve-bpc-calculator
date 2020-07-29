@@ -1,65 +1,56 @@
-[
-    {
-        "ME": 0,
-        "TE": 0,
-        "name": "None",
-        "prob": 0.0,
-        "runs": 0
-    },
-    {
+{
+    "Accelerant Decryptor": {
         "ME": 2,
         "TE": 10,
-        "name": "Accelerant Decryptor",
         "prob": 0.2,
         "runs": 1
     },
-    {
+    "Attainment Decryptor": {
         "ME": -1,
         "TE": 4,
-        "name": "Attainment Decryptor",
         "prob": 0.8,
         "runs": 4
     },
-    {
+    "Augmentation Decryptor": {
         "ME": -2,
         "TE": 2,
-        "name": "Augmentation Decryptor",
         "prob": -0.4,
         "runs": 9
     },
-    {
+    "None": {
+        "ME": 0,
+        "TE": 0,
+        "prob": 0.0,
+        "runs": 0
+    },
+    "Optimized Attainment Decryptor": {
         "ME": 1,
         "TE": -2,
-        "name": "Optimized Attainment Decryptor",
         "prob": 0.9,
         "runs": 2
     },
-    {
+    "Optimized Augmentation Decryptor": {
         "ME": 2,
         "TE": 0,
-        "name": "Optimized Augmentation Decryptor",
         "prob": -0.1,
         "runs": 7
     },
-    {
+    "Parity Decryptor": {
         "ME": 1,
         "TE": -2,
-        "name": "Parity Decryptor",
         "prob": 0.5,
         "runs": 3
     },
-    {
+    "Process Decryptor": {
         "ME": 3,
         "TE": 6,
-        "name": "Process Decryptor",
         "prob": 0.1,
         "runs": 0
     },
-    {
+    "Symmetry Decryptor": {
         "ME": 1,
         "TE": 8,
-        "name": "Symmetry Decryptor",
         "prob": 0,
         "runs": 2
     }
-]
+}
