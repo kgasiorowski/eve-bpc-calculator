@@ -1,9 +1,9 @@
 #!/usr/local/bin/python3
-import src.runner
+import src.driver
 
 if __name__ == "__main__":
 
     try:
-        src.runner.main()
+        src.driver.main()
     except KeyboardInterrupt:
         print('Exiting...')
