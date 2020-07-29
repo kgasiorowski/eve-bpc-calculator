@@ -5,6 +5,7 @@ from src.config.config import *
 from src.cache.mode import Mode
 from src.data.blueprint.blueprintmarketresults import BlueprintMarketResults
 
+
 class Blueprint:
 
     def __init__(self):
@@ -12,7 +13,6 @@ class Blueprint:
         self.name = None
         self.output_quant = None
         self.runs = None
-
         self.invented = False
         self.base_invention_chance = None
         self.invented_runs = None
@@ -24,9 +24,7 @@ class Blueprint:
         self.market = Market.get_reference()
 
     def get_market_results(self, buyorders=True, sellorders=True, decryptor=None):
-
         results = BlueprintMarketResults()
-
         results.runs = self.runs
         results.input_costs = self.__calculate_costs(buyorders)
 
@@ -45,29 +43,22 @@ class Blueprint:
 
     def __calculate_costs(self, buyorders):
         input_costs = 0
-
         for item_name, amount in self.input_items.items():
             buying_mode = Mode.BUYMAX if buyorders else Mode.SELLMIN
             item_price = self.market.apply_mode(self.market.get_market_attr_by_name(item_name), buying_mode)
             input_costs += item_price * amount
-
         return input_costs
 
     def __calculate_revenue(self, sellorders):
-
-
         selling_mode = Mode.SELLMIN if sellorders else Mode.BUYMAX
         return self.market.apply_mode(self.market.get_market_attr_by_name(self.name), selling_mode) \
                * self.output_quant
 
     def __calculate_invention_costs(self, decryptor):
-
         datacores = 2 * self.market.apply_mode(self.market.get_market_attr_by_name(self.datacore1), Mode.SELLMIN) +\
                     2 * self.market.apply_mode(self.market.get_market_attr_by_name(self.datacore2), Mode.SELLMIN)
-
         derived_invention_chance = self.base_invention_chance * (1+decryptor['prob'])
         derived_runs = self.invented_runs + decryptor['runs']
-
         cost_per_invention = datacores + decryptor['price']
         num_invention_runs_ratio = derived_invention_chance * derived_runs
         price_per_invented_run = cost_per_invention/num_invention_runs_ratio
@@ -75,7 +66,6 @@ class Blueprint:
 
     @staticmethod
     def load_blueprints():
-
         blueprints = {}
         blueprints_json = json.load(open(BLUEPRINTS_PATH))
 

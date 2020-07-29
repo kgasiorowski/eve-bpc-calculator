@@ -1,5 +1,4 @@
 class BlueprintMarketResults:
-
     def __init__(self):
         self.runs = None
         self.input_costs = None

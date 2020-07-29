@@ -6,9 +6,14 @@ from src.config.config import *
 
 
 class Market:
-
     # Singleton
     market_instance = None
+
+    @staticmethod
+    def get_reference():
+        if Market.market_instance is None:
+            Market.market_instance = Market()
+        return Market.market_instance
 
     def __init__(self):
         self.id_to_name = None
@@ -17,12 +22,6 @@ class Market:
 
         self.load_dicts()
         self.load_cache()
-
-    @staticmethod
-    def get_reference():
-        if Market.market_instance is None:
-            Market.market_instance = Market()
-        return Market.market_instance
 
     def load_dicts(self):
         if self.id_to_name is None:
@@ -91,7 +90,6 @@ class Market:
             self.market_cache[itemid]['sell']['min'].setdefault('val', json_response['sell']['min'])
             self.market_cache[itemid]['sell']['max'].setdefault('val', json_response['sell']['max'])
             self.market_cache[itemid]['sell']['avg'].setdefault('val', json_response['sell']['avg'])
-
             self.save_cache()
 
         return self.market_cache[itemid]
