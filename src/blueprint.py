@@ -1,7 +1,8 @@
+import json
 from src.market import *
 from src.decryptor import Decryptor
 from src.config import *
-import json
+
 
 
 class Blueprint:

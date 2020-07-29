@@ -1,8 +1,7 @@
-from src.blueprint import Blueprint
 import argparse
-from src import market
-from src.decryptor import Decryptor
 import src.data as data
+from src.blueprint import Blueprint
+
 
 def print_item(item, result, counter=1):
     print(f'{counter:3d}. '
