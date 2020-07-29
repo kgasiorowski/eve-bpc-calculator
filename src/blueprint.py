@@ -1,13 +1,10 @@
-from src.market import Mode
+from src.market import *
 from src.decryptor import Decryptor
 from src.config import *
 import json
 
 
 class Blueprint:
-
-    market = None
-    decryptors = None
 
     def __init__(self):
         self.input_items = None
@@ -23,6 +20,7 @@ class Blueprint:
         self.datacore1 = None
         self.datacore2 = None
         self.invention_cost = None
+        self.market = Market.get_reference()
 
     def get_market_results(self, buyorders=True, sellorders=True, decryptor=None):
 
@@ -33,7 +31,7 @@ class Blueprint:
 
         if self.invented:
             if decryptor is None:
-                decryptor = Blueprint.decryptors['None']
+                decryptor = Decryptor.load_decryptors()['None']
             results.invention_costs = self.__calculate_invention_costs(decryptor)
             results.input_costs += results.invention_costs
             results.runs += decryptor['runs']
@@ -45,26 +43,26 @@ class Blueprint:
         return results
 
     def __calculate_costs(self, buyorders):
-
         input_costs = 0
 
         for item_name, amount in self.input_items.items():
             buying_mode = Mode.BUYMAX if buyorders else Mode.SELLMIN
-            item_price = Blueprint.market.apply_mode(Blueprint.market.get_market_attr_by_name(item_name), buying_mode)
+            item_price = self.market.apply_mode(self.market.get_market_attr_by_name(item_name), buying_mode)
             input_costs += item_price * amount
 
         return input_costs
 
     def __calculate_revenue(self, sellorders):
 
+
         selling_mode = Mode.SELLMIN if sellorders else Mode.BUYMAX
-        return Blueprint.market.apply_mode(Blueprint.market.get_market_attr_by_name(self.name), selling_mode) \
+        return self.market.apply_mode(self.market.get_market_attr_by_name(self.name), selling_mode) \
                * self.output_quant
 
     def __calculate_invention_costs(self, decryptor):
 
-        datacores = 2 * Blueprint.market.apply_mode(Blueprint.market.get_market_attr_by_name(self.datacore1), Mode.SELLMIN) +\
-                    2 * Blueprint.market.apply_mode(Blueprint.market.get_market_attr_by_name(self.datacore2), Mode.SELLMIN)
+        datacores = 2 * self.market.apply_mode(self.market.get_market_attr_by_name(self.datacore1), Mode.SELLMIN) +\
+                    2 * self.market.apply_mode(self.market.get_market_attr_by_name(self.datacore2), Mode.SELLMIN)
 
         derived_invention_chance = self.base_invention_chance * (1+decryptor['prob'])
         derived_runs = self.invented_runs + decryptor['runs']

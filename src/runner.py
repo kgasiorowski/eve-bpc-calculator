@@ -1,6 +1,6 @@
 from src.blueprint import Blueprint
 import argparse
-from src import market as mk
+from src import market
 from src.decryptor import Decryptor
 import src.data as data
 
@@ -37,15 +37,8 @@ def main():
     if args.alphabetical:
         print('Sorting alphabetically!')
 
+    # Initialize generated stuff
     data.init()
-
-    # Link the cache to all the classes that need it
-    market = mk.Market()
-    Decryptor.market = market
-    Blueprint.market = market
-
-    decryptors = Decryptor.load_decryptors()
-    Blueprint.decryptors = decryptors
 
     # Initialize our list of blueprints
     blueprints = Blueprint.load_blueprints()

@@ -19,6 +19,9 @@ class Mode(Enum):
 
 class Market:
 
+    # Singleton
+    market_instance = None
+
     def __init__(self):
         self.id_to_name = None
         self.name_to_id = None
@@ -26,6 +29,12 @@ class Market:
 
         self.load_dicts()
         self.load_cache()
+
+    @staticmethod
+    def get_reference():
+        if Market.market_instance is None:
+            Market.market_instance = Market()
+        return Market.market_instance
 
     def load_dicts(self):
         if self.id_to_name is None:
