@@ -1,5 +1,5 @@
 import argparse
-import src.data as data
+import src.preprocessing.data as data
 from src.blueprint import Blueprint
 
 
