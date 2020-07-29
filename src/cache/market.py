@@ -1,20 +1,8 @@
 import requests
 import json
 import os
-from enum import Enum
 from time import time
 from src.config.config import *
-
-
-class Mode(Enum):
-    BUYMAX = ('buy', 'max')
-    SELLMIN = ('sell', 'min')
-
-    SELLMAX = ('sell', 'max')
-    BUYMIN = ('buy', 'min')
-
-    BUYAVG = ('buy', 'avg')
-    SELLAVG = ('sell', 'avg')
 
 
 class Market:
