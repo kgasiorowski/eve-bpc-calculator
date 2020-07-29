@@ -3,6 +3,7 @@ from src.cache.market import Market
 from src.data.decryptor import Decryptor
 from src.config.config import *
 from src.cache.mode import Mode
+from src.data.blueprint.blueprintmarketresults import BlueprintMarketResults
 
 class Blueprint:
 
@@ -98,15 +99,3 @@ class Blueprint:
             blueprints.setdefault(blueprint.name, blueprint)
 
         return blueprints
-
-
-class BlueprintMarketResults:
-
-    def __init__(self):
-        self.runs = None
-        self.input_costs = None
-        self.invention_costs = None
-        self.revenue = None
-        self.profit_per_run = None
-        self.profit_per_bpc = None
-        self.profit_margin = None
