@@ -1,7 +1,6 @@
 from src.cache.market import *
-from src.decryptor import Decryptor
+from src.data.decryptor import Decryptor
 from src.config.config import *
-
 
 
 class Blueprint:

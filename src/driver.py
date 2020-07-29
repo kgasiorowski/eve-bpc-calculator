@@ -1,6 +1,6 @@
 import argparse
 import src.preprocessing.data as data
-from src.blueprint import Blueprint
+from src.data.blueprint import Blueprint
 
 
 def print_item(item, result, counter=1):
