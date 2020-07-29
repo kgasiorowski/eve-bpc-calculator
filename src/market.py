@@ -67,7 +67,8 @@ class Market:
         cache_age = current_time - cache_timestamp
         if cache_age > CACHE_LIFETIME:
 
-            del self.market_cache[itemid]
+            if itemid in self.market_cache:
+                del self.market_cache[itemid]
 
             URL = r'http://api.evemarketer.com/ec/marketstat/json'
             PARAMS = {'typeid': itemid,

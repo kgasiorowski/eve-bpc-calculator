@@ -1,16 +1,13 @@
 from src.market import Mode
 from src.decryptor import Decryptor
 from src.config import *
-from src.data import init
 import json
-
-init()
-decryptors = Decryptor.load_decryptors()
 
 
 class Blueprint:
 
     market = None
+    decryptors = None
 
     def __init__(self):
         self.input_items = None

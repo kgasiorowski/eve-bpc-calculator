@@ -2,7 +2,7 @@ from src.blueprint import Blueprint
 import argparse
 from src import market as mk
 from src.decryptor import Decryptor
-
+import src.data as data
 
 def print_item(item, result, counter=1):
     print(f'{counter:3d}. '
@@ -37,10 +37,15 @@ def main():
     if args.alphabetical:
         print('Sorting alphabetically!')
 
+    data.init()
+
     # Link the cache to all the classes that need it
     market = mk.Market()
     Decryptor.market = market
     Blueprint.market = market
+
+    decryptors = Decryptor.load_decryptors()
+    Blueprint.decryptors = decryptors
 
     # Initialize our list of blueprints
     blueprints = Blueprint.load_blueprints()
